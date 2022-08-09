@@ -2,14 +2,27 @@ package com.callor.todo.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.callor.todo.model.AuthorityVO;
 import com.callor.todo.model.UserVO;
+import com.callor.todo.persistance.UserDao;
 import com.callor.todo.service.UserService;
 
 @Service("userServiceV1")
 public class UserServiceImplV1 implements UserService{
+	
+	@Autowired
+	private UserDao userDao;
+	
+	//자동실행하기(꼼수)
+	@Bean
+	public void create_tble() {
+		userDao.create_user_table();
+		userDao.create_auth_table();
+	}
 	
 	
 	@Override
@@ -26,17 +39,17 @@ public class UserServiceImplV1 implements UserService{
 
 	@Override
 	public List<AuthorityVO> select_auths(String username) {
-		return null;
+		return userDao.select_auths(username);
 	}
 
 	@Override
 	public List<UserVO> selectAll() {
-		return null;
+		return userDao.selectAll();
 	}
 
 	@Override
 	public UserVO findById(String id) {
-		return null;
+		return userDao.findById(id);
 	}
 
 	@Override
